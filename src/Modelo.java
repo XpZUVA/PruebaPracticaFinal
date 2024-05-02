@@ -13,17 +13,17 @@ public class Modelo extends Observable {
 
     public Timer juego;
 
-    public int speedX = -3;
+    public int speedX = 3;
     public int speedY = 3;
-    public int initialSpeedY = speedY + 1;
-    public int intialSpeedX = speedX + 1;
+    public int initialSpeedX = 3;
+    public int initialSpeedY = -3;
 
 
     String texto = "Pulsa <Enter> para comenzar";
     public boolean gameStarted = false;
 
     public Rectangle ballRect = new Rectangle(250, 600, 20, 20);
-    public Rectangle barRect = new Rectangle(0, 0, 100, 20);
+    public Rectangle barRect = new Rectangle(250, 600, 100, 20);
 
     public int vidas = 3;
     public boolean gameOver = false;
@@ -57,7 +57,7 @@ public class Modelo extends Observable {
         juego = new Timer(0, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                ballX -= speedX;
+                ballX += speedX;
                 ballY -= speedY;
                 setChanged();
                 notifyObservers();
@@ -74,17 +74,17 @@ public class Modelo extends Observable {
 
                 if(ballRect.intersects(barRect)){
                     //calcula el angulo de rebote
-                    double intersectX = ballX + (ballW / 2) - barX;
-                    double normalizedIntersectX = intersectX / barW;
-                    double bounceAngle = normalizedIntersectX * Math.toRadians(60);
 
-                    // Ajusta la velocidad de la pelota según el ángulo de rebote
-                    double newSpeedX = speedY * Math.sin(bounceAngle);
-                    double newSpeedY = -speedY * Math.cos(bounceAngle);
-                    speedX = (int) Math.round(newSpeedX);
-                    speedY = (int) Math.round(newSpeedY);
+                    int midPointBallX = ballX + ballW/2;
+                    int midPointBarX = barX + barW/2;
 
-                    speedY = (int) Math.signum(speedY) * initialSpeedY;
+                    if(midPointBallX < midPointBarX){
+
+                    }else if(midPointBallX > midPointBarX){
+
+                    }
+                    speedY = -speedY;
+
                 }
                 if(ballY > 800){
                     gameStarted = false;

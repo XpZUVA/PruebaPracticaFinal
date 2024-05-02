@@ -40,7 +40,7 @@ public class Controlador extends JFrame {
         modelo.barH = bar.getIconHeight();
         modelo.barW = bar.getIconWidth();
         modelo.ballH = ball.getIconHeight();
-        modelo.ballW = ball.getIconWidth() / 3;
+        modelo.ballW = ball.getIconWidth();
 
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
