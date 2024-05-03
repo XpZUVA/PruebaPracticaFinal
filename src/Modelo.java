@@ -13,10 +13,10 @@ public class Modelo extends Observable {
 
     public Timer juego;
 
-    public int speedX = 3;
-    public int speedY = 3;
-    public int initialSpeedX = 3;
-    public int initialSpeedY = -3;
+    public float speedX;
+    public float speedY;
+    public int initialSpeedX = 6;
+    public int initialSpeedY = -6;
 
 
     String texto = "Pulsa <Enter> para comenzar";
@@ -39,8 +39,8 @@ public class Modelo extends Observable {
         texto = "";
         ballX = 325;
         ballY = 562;
-        speedX = -3;
-        speedY = 3;
+        speedX = initialSpeedX;
+        speedY = initialSpeedY;
         barX = 250;
         gameStarted = true;
         if (gameOver){
@@ -58,32 +58,39 @@ public class Modelo extends Observable {
             @Override
             public void actionPerformed(ActionEvent e){
                 ballX += speedX;
-                ballY -= speedY;
+                ballY += speedY;
                 setChanged();
                 notifyObservers();
+                System.out.println("ballX: " + ballX + " ballY: " + ballY + " speedX: " + speedX + " speedY: " + speedY);
 
 
                 if(ballX < 0 || ballX > 660){
                     speedX = -speedX;
                 }
-                if(ballY < 50){
-                    speedY = -speedY;
+                if(ballY < 50 || ballY == 49){
+                    speedY = Math.abs(speedY) + 1;
                 }
                 barRect.setBounds(barX, 600, barW, barH);
                 ballRect.setBounds(ballX, ballY, ballH, ballW);
 
                 if(ballRect.intersects(barRect)){
-                    //calcula el angulo de rebote
-
                     int midPointBallX = ballX + ballW/2;
                     int midPointBarX = barX + barW/2;
 
                     if(midPointBallX < midPointBarX){
+                        float colisionPoint = 2 * (midPointBallX - barX);
+                        float speedMultiplier = colisionPoint / 100;
+                        speedY = -Math.abs(initialSpeedY * speedMultiplier);
+                        speedX = -(initialSpeedX * (1-speedMultiplier));
 
                     }else if(midPointBallX > midPointBarX){
+                        float colisionPoint = 2 * (midPointBallX - midPointBarX);
+                        float speedMultiplier = (100 - colisionPoint) / 100;
+                        speedY = -Math.abs(initialSpeedY * speedMultiplier);
+                        speedX = initialSpeedX * (1 - speedMultiplier);
 
                     }
-                    speedY = -speedY;
+
 
                 }
                 if(ballY > 800){
