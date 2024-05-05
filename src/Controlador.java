@@ -39,8 +39,11 @@ public class Controlador extends JFrame {
 
         modelo.barH = bar.getIconHeight();
         modelo.barW = bar.getIconWidth();
-        modelo.ballH = ball.getIconHeight();
-        modelo.ballW = ball.getIconWidth();
+
+        for(int i = 0; i < modelo.balls.size(); i++){
+            modelo.balls.get(i).ballW = ball.getIconWidth();
+            modelo.balls.get(i).ballH = ball.getIconHeight();
+        }
 
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -58,7 +61,12 @@ public class Controlador extends JFrame {
                     if(!modelo.gameStarted){
                         modelo.startGame();
                     }
-
+                }
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                    System.exit(0);
+                }
+                if(e.getKeyCode() == KeyEvent.VK_SPACE){
+                    modelo.crearPelota();
                 }
             }
 
@@ -117,7 +125,10 @@ public class Controlador extends JFrame {
             g.setColor(Color.white);
             g.fillRect(0, 0, 700, 50);  // Pinta el fondo
             // Pinta los iconos después de llenar el fondo
-            ball.paintIcon(this, g, modelo.ballX, modelo.ballY);
+            for(int i = 0; i < modelo.balls.size(); i++){
+                ball.paintIcon(this, g, modelo.balls.get(i).ballX, modelo.balls.get(i).ballY);
+            }
+
             bar.paintIcon(this, g, modelo.barX, 600);
 
             for(int i = 0; i < modelo.vidas; i++){
