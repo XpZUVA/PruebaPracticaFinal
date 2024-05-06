@@ -10,7 +10,7 @@ public class Ball {
     public int intialSpeedX = 6;
     public int intialSpeedY = -6;
 
-    public Rectangle ballRect = new Rectangle(250, 600, 20, 20);
+    public Rectangle ballRect = new Rectangle(250, 600, 36, 36);
 
     public Ball(){
         speedX = intialSpeedX;

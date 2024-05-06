@@ -23,7 +23,6 @@ public class Modelo extends Observable {
     String texto = "Pulsa <Enter> para comenzar";
     public boolean gameStarted = false;
 
-    public Rectangle ballRect = new Rectangle(250, 600, 20, 20);
     public Rectangle barRect = new Rectangle(250, 600, 100, 20);
 
     public int vidas = 3;
@@ -123,58 +122,6 @@ public class Modelo extends Observable {
                     }
                 }
 
-                /*
-                ballX += speedX;
-                ballY += speedY;
-                setChanged();
-                notifyObservers();
-                System.out.println("ballX: " + ballX + " ballY: " + ballY + " speedX: " + speedX + " speedY: " + speedY);
-
-
-                if(ballX < 0 || ballX > 660){
-                    speedX = -speedX;
-                }
-                if(ballY < 50 || ballY == 49){
-                    speedY = Math.abs(speedY) + 1;
-                }
-                barRect.setBounds(barX, 600, barW, barH);
-                ballRect.setBounds(ballX, ballY, ballH, ballW);
-
-                if(ballRect.intersects(barRect)){
-                    int midPointBallX = ballX + ballW/2;
-                    int midPointBarX = barX + barW/2;
-
-                    if(midPointBallX < midPointBarX){
-                        float colisionPoint = 2 * (midPointBallX - barX);
-                        float speedMultiplier = colisionPoint / 100;
-                        speedY = -Math.abs(initialSpeedY * speedMultiplier);
-                        speedX = -(initialSpeedX * (1-speedMultiplier));
-
-                    }else if(midPointBallX > midPointBarX){
-                        float colisionPoint = 2 * (midPointBallX - midPointBarX);
-                        float speedMultiplier = (100 - colisionPoint) / 100;
-                        speedY = -Math.abs(initialSpeedY * speedMultiplier);
-                        speedX = initialSpeedX * (1 - speedMultiplier);
-
-                    }
-
-
-                }
-                if(ballY > 800){
-                    gameStarted = false;
-                    juego.stop();
-                    vidas--;
-                    if(vidas == 0){
-                        texto = "No te quedan vidas <Enter> para reiniciar";
-                        gameOver = true;
-
-                    }else{
-                        texto = "Pulsa <Enter> para continuar";
-                    }
-                    juego.stop();
-                    setChanged();
-                    notifyObservers();
-                }*/
             }
         });
 

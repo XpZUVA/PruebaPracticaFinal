@@ -9,7 +9,8 @@ public class Controlador extends JFrame {
 
     Vista0 vista0;
     Modelo modelo;
-    private ImageIcon ball, bar;
+    Nivel nivel;
+    private ImageIcon ball, bar, ladrillo;
     private ArrayList<ImageIcon> vidas = new ArrayList<ImageIcon>();
 
     private DrawCanvas canvas;
@@ -19,6 +20,7 @@ public class Controlador extends JFrame {
     public void configControlador(){
         modelo  = new Modelo();
         vista0 = new Vista0(this, modelo);
+        nivel = new Nivel("100001110011111111000000111111110011100001000000111111");
 
         modelo.addObserver(vista0);
 
@@ -96,6 +98,7 @@ public class Controlador extends JFrame {
         ball = new ImageIcon("src/ball.png");
         bar = new ImageIcon(getClass().getResource("/resources/grey_button03.png"));
         ball = new ImageIcon(getClass().getResource("/resources/grey_circle.png"));
+        ladrillo = new ImageIcon(getClass().getResource("/resources/blue_button03.png"));
 
         vidas.add(new ImageIcon(getClass().getResource("/resources/corazon.png")));
         vidas.add(new ImageIcon(getClass().getResource("/resources/corazon.png")));
@@ -110,6 +113,9 @@ public class Controlador extends JFrame {
         scaleImage = vidas.get(2).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         vidas.set(2, new ImageIcon(scaleImage));
 
+        scaleImage = ladrillo.getImage().getScaledInstance(117, 28, Image.SCALE_DEFAULT);
+        ladrillo = new ImageIcon(scaleImage);
+
     }
 
 
@@ -123,21 +129,24 @@ public class Controlador extends JFrame {
             super.paintComponent(g);
             this.setBackground(Color.black);
             g.setColor(Color.white);
-            g.fillRect(0, 0, 700, 50);  // Pinta el fondo
-            // Pinta los iconos después de llenar el fondo
+            g.fillRect(0, 0, 700, 50);
+
             for(int i = 0; i < modelo.balls.size(); i++){
                 ball.paintIcon(this, g, modelo.balls.get(i).ballX, modelo.balls.get(i).ballY);
             }
 
             bar.paintIcon(this, g, modelo.barX, 600);
 
+            for(int i = 0; i < nivel.ladrillos.size(); i++){
+                ladrillo.paintIcon(this, g, nivel.ladrillos.get(i).ladrilloX, nivel.ladrillos.get(i).ladrilloY);
+            }
+
+
             for(int i = 0; i < modelo.vidas; i++){
                 vidas.get(i).paintIcon(this, g, 0 + (i * 50), 0);
             }
 
-            // Dibuja el texto en el centro del canvas
             g.setFont(new Font("Arial", Font.BOLD, 20));
-
 
             FontMetrics metrics = g.getFontMetrics();
             int x = (getWidth() - metrics.stringWidth(modelo.texto)) / 2;
