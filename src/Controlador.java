@@ -139,6 +139,7 @@ public class Controlador extends JFrame {
 
             for(int i = 0; i < nivel.ladrillos.size(); i++){
                 ladrillo.paintIcon(this, g, nivel.ladrillos.get(i).ladrilloX, nivel.ladrillos.get(i).ladrilloY);
+                System.out.println(nivel.ladrillos.get(i).ladrilloX + " " + nivel.ladrillos.get(i).ladrilloY);
             }
 
 

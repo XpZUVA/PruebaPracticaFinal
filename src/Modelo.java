@@ -67,7 +67,6 @@ public class Modelo extends Observable {
                     balls.get(i).move();
                     setChanged();
                     notifyObservers();
-                    //System.out.println("ballX: " + balls.get(i).ballX + " ballY: " + balls.get(i).ballY + " speedX: " + balls.get(i).speedX + " speedY: " + balls.get(i).speedY);
                 }
                 for(int i = 0; i < balls.size(); i++){
                     if(balls.get(i).ballX < 0 || balls.get(i).ballX > 660){

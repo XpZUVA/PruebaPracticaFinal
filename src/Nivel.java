@@ -38,6 +38,12 @@ public class Nivel {
                 }
                 ladrillos.add(new Ladrillo(col * 117, (row * 28) + 50, 117, 28 ,1));
                 col++;
+            }else if(nivel.charAt(i) == '0'){
+                if(col == 6){
+                    row++;
+                    col = 0;
+                }
+                col++;
             }
         }
     }
