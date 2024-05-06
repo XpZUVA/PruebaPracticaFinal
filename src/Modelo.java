@@ -131,20 +131,20 @@ public class Modelo extends Observable {
                     for(int j = 0; j < nivel.ladrillos.size(); j++){
                         if(balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectXUp) || balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectXDown)){
                             balls.get(i).speedY = Math.abs(balls.get(i).speedY) + 1;
-                            /*if(nivel.ladrillos.get(j).refuerzo == 1){
+                            if(nivel.ladrillos.get(j).refuerzo == 1){
                                 nivel.ladrillos.get(j).refuerzo = 0;
                             }else{
                                 nivel.eliminarLadrillo(j);
-                            }*/
+                            }
                         }
-                        if(balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectYLeft) || balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectYRight)){
+                       /* if(balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectYLeft) || balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectYRight)){
                             balls.get(i).speedX = -balls.get(i).speedX;
-                            /*if(nivel.ladrillos.get(j).refuerzo == 1){
+                            if(nivel.ladrillos.get(j).refuerzo == 1){
                                 nivel.ladrillos.get(j).refuerzo = 0;
                             }else{
                                 nivel.eliminarLadrillo(j);
-                            }*/
-                        }
+                            }
+                        }*/
                     }
                 }
             }
