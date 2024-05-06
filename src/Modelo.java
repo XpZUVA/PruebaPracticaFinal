@@ -28,6 +28,11 @@ public class Modelo extends Observable {
     public int vidas = 3;
     public boolean gameOver = false;
 
+    public Nivel nivel;
+    public Modelo(Nivel nivel){
+        this.nivel = nivel;
+    }
+
 
     public void setBarX(int barX){
         this.barX = barX;
@@ -54,8 +59,9 @@ public class Modelo extends Observable {
 
     public void eliminarPelota(int indice){
         balls.remove(indice);
-        System.out.println(balls.size());
     }
+
+
 
 
     public void init() {
@@ -80,26 +86,6 @@ public class Modelo extends Observable {
                     }
                 }
 
-                barRect.setBounds(barX, 600, barW, barH);
-
-                for(int i = 0; i < balls.size(); i++){
-                    if(balls.get(i).ballRect.intersects(barRect)){
-                        int midPointBallX = balls.get(i).ballX + balls.get(i).ballW/2;
-                        int midPointBarX = barX + barW/2;
-                        if(midPointBallX < midPointBarX){
-                            float colisionPoint = 2 * (midPointBallX - barX);
-                            float speedMultiplier = colisionPoint / 100;
-                            balls.get(i).speedY = -Math.abs(initialSpeedY * speedMultiplier);
-                            balls.get(i).speedX = -(initialSpeedX * (1-speedMultiplier));
-                        }else if(midPointBallX > midPointBarX){
-                            float colisionPoint = 2 * (midPointBallX - midPointBarX);
-                            float speedMultiplier = (100 - colisionPoint) / 100;
-                            balls.get(i).speedY = -Math.abs(initialSpeedY * speedMultiplier);
-                            balls.get(i).speedX = initialSpeedX * (1 - speedMultiplier);
-                        }
-                    }
-                }
-
                 for(int i = 0; i < balls.size(); i++){
                     if(balls.get(i).ballY > 800){
                         if(balls.size() != 1){
@@ -121,6 +107,46 @@ public class Modelo extends Observable {
                     }
                 }
 
+                barRect.setBounds(barX, 600, barW, barH);
+
+                for(int i = 0; i < balls.size(); i++){
+                    if(balls.get(i).ballRect.intersects(barRect)){
+                        int midPointBallX = balls.get(i).ballX + balls.get(i).ballW/2;
+                        int midPointBarX = barX + barW/2;
+                        if(midPointBallX < midPointBarX){
+                            float colisionPoint = 2 * (midPointBallX - barX);
+                            float speedMultiplier = colisionPoint / 100;
+                            balls.get(i).speedY = -Math.abs(initialSpeedY * speedMultiplier);
+                            balls.get(i).speedX = -(initialSpeedX * (1-speedMultiplier));
+                        }else if(midPointBallX > midPointBarX){
+                            float colisionPoint = 2 * (midPointBallX - midPointBarX);
+                            float speedMultiplier = (100 - colisionPoint) / 100;
+                            balls.get(i).speedY = -Math.abs(initialSpeedY * speedMultiplier);
+                            balls.get(i).speedX = initialSpeedX * (1 - speedMultiplier);
+                        }
+                    }
+                }
+
+                for(int i = 0; i < balls.size(); i++){
+                    for(int j = 0; j < nivel.ladrillos.size(); j++){
+                        if(balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectXUp) || balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectXDown)){
+                            balls.get(i).speedY = Math.abs(balls.get(i).speedY) + 1;
+                            /*if(nivel.ladrillos.get(j).refuerzo == 1){
+                                nivel.ladrillos.get(j).refuerzo = 0;
+                            }else{
+                                nivel.eliminarLadrillo(j);
+                            }*/
+                        }
+                        if(balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectYLeft) || balls.get(i).ballRect.intersects(nivel.ladrillos.get(j).ladrilloRectYRight)){
+                            balls.get(i).speedX = -balls.get(i).speedX;
+                            /*if(nivel.ladrillos.get(j).refuerzo == 1){
+                                nivel.ladrillos.get(j).refuerzo = 0;
+                            }else{
+                                nivel.eliminarLadrillo(j);
+                            }*/
+                        }
+                    }
+                }
             }
         });
 

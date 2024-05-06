@@ -18,9 +18,9 @@ public class Controlador extends JFrame {
 
 
     public void configControlador(){
-        modelo  = new Modelo();
-        vista0 = new Vista0(this, modelo);
         nivel = new Nivel("100001110011111111000000111111110011100001000000111111");
+        modelo  = new Modelo(nivel);
+        vista0 = new Vista0(this, modelo);
 
         modelo.addObserver(vista0);
 
@@ -139,7 +139,6 @@ public class Controlador extends JFrame {
 
             for(int i = 0; i < nivel.ladrillos.size(); i++){
                 ladrillo.paintIcon(this, g, nivel.ladrillos.get(i).ladrilloX, nivel.ladrillos.get(i).ladrilloY);
-                System.out.println(nivel.ladrillos.get(i).ladrilloX + " " + nivel.ladrillos.get(i).ladrilloY);
             }
 
 

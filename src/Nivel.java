@@ -47,4 +47,8 @@ public class Nivel {
             }
         }
     }
+
+    public void eliminarLadrillo(int indice){
+        ladrillos.remove(indice);
+    }
 }
